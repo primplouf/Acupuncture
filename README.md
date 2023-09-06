@@ -33,3 +33,13 @@ Recherche de pathologies par mot-clé :
 - Fonctionnalité de recherche de pathologie par mot-clef, mot-clefs associés aux symptômes dans la base de connaissance. FONCTIONNALITE ACCESSIBLE UNIQUEMENT POUR UTILISATEURS AUTHENTIFIE
 Compte utilisateur :
 - Système de gestion de sutilisateurs (inscription, login, session, etc...), utilisateur connecté aura la possibilité d'accéder à la fonctionnalité de recherche de pathologies par mot-clef
+
+Lancer la VM :
+#!/bin/bash
+#Exec in sudo
+apt update
+apt-get install git
+mkdir -p /root/.ssh/
+echo "publickey" > /root/.ssh/id_rsa.pub
+echo "privatekey" > /root/.ssh/id_rsa
+git clone git@github.com:primplouf/real-php.git
