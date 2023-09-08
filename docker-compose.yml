@@ -13,8 +13,13 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   php:
-    image: php:apache
+    build:
+      context: ./dockerfiles/php
+      dockerfile: Dockerfile
+    image: php
     container_name: my-php-container
+    working_dir: /var/www/html
+    entrypoint: ["sh", "-c", "composer install && exec apache2-foreground"]
     ports:
       - "80:80"
     volumes:
@@ -31,4 +36,5 @@ services:
       - "5050:80"
 
 volumes:
+  src:
   postgres_data:

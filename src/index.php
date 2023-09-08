@@ -1,3 +1,5 @@
 <?php
-echo "waw";
+
+//PHP Router
+echo "It WORKS !"
 ?>
