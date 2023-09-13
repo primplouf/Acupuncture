@@ -21,7 +21,7 @@ services:
     working_dir: /var/www/html
     entrypoint: ["sh", "-c", "composer install && exec apache2-foreground"]
     ports:
-      - "80:80"
+      - "8000:80"
     volumes:
       - ./src:/var/www/html
 
