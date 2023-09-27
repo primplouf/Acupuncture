@@ -10,7 +10,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ./ressource/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
 
   php:
     build:
@@ -37,4 +37,3 @@ services:
 
 volumes:
   src:
-  postgres_data:
