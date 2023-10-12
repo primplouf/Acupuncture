@@ -26,12 +26,17 @@ services:
       - ./src:/var/www/html
 
   pgadmin:
+    build:
+      context: ./dockerfiles/pgadmin
+      dockerfile: Dockerfile
     container_name: pgadmin4_container
     image: dpage/pgadmin4
     restart: 'no'
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: root
+    links:
+      - postgres
     ports:
       - "5050:80"
 

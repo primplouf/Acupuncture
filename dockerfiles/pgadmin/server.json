@@ -1,0 +1,16 @@
+{
+    "Servers": {
+        "1": {
+            "Name": "Acupuncture",
+            "Group": "Servers",
+            "Host": "postgres",
+            "Port": 5432,
+            "MaintenanceDB": "postgres",
+            "Username": "myuser",
+            "UseSSHTunnel": 0,
+            "TunnelPort": "22",
+            "TunnelAuthentication": 0,
+            "KerberosAuthentication": false
+        }
+    }
+}
