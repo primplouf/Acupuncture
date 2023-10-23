@@ -2,41 +2,41 @@
 
 #[Attribute]
 class Route {
-    private $endpoint;
-    private $method;
-    private $function;
-    private $controller;
+    private $_endpoint;
+    private $_method;
+    private $_function;
+    private $_controller;
 
     public function __construct($endpoint, $method, $function, $controller = null){
-        $this->endpoint = $endpoint;
-        $this->method = $method;
-        $this->function = $function;
-        $this->controller = $controller;
+        $this->_endpoint = $endpoint;
+        $this->_method = $method;
+        $this->_function = $function;
+        $this->_controller = $controller;
     }
 
     public function getEndpoint(){
-      return $this->endpoint;
+      return $this->_endpoint;
     }
 
     public function getMethod(){
-        return $this->method;
+        return $this->_method;
     }
 
     public function getFunction(){
-        return $this->function;
+        return $this->_function;
     }
     
     public function setController($controller){
-        $this->controller = $controller;
+        $this->_controller = $controller;
     }
 
     public function setPrefix($prefix){
-      $this->endpoint = $prefix . $this->endpoint;
+      $this->_endpoint = $prefix . $this->_endpoint;
     }
 
     public function call(){
-        $function = $this->function;
-        return ($this->controller)->$function();
+        $function = $this->_function;
+        return ($this->_controller)->$function();
     }
 }
 

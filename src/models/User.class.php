@@ -2,10 +2,12 @@
 
 class User
 {
-  protected $_id;
-  protected $_login;
-  protected $_pwd;
-  protected $_email;
+  private $_id;
+  private $_login;
+  private $_pwd;
+  private $_name;
+  private $_surname;
+  private $_email;
   
 
   public function __construct(array $donnees)
@@ -79,6 +81,16 @@ class User
     {
       $this->_email = $email;
     }
+  }
+
+  public function setName($name)
+  {
+    $this->_name = $name;
+  }
+
+  public function setSurname($surname)
+  {
+    $this->_surname = $surname;
   }
 }
 
