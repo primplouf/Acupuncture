@@ -1,15 +1,16 @@
 <?php
-include 'vendor/autoload.php';
-include 'router/Route.class.php';
 
+require_once("router/Router.class.php");
 
+define("CONTROLLERS_PATH", "controllers/");
+
+$router = new Router();
+$router->loadRoutes(CONTROLLERS_PATH);
+$router->matchRoute($_SERVER['REQUEST_URI']);
 
 try {
     // le dossier ou on trouve les templates
     $loader = new Twig\Loader\FilesystemLoader('views');
-
-    // initialiser l'environement Twig
-    $twig = new Twig\Environment($loader);
 
     // load template
     if(isset($_GET["page"])) {
@@ -47,45 +48,4 @@ try {
     die ('ERROR: ' . $e->getMessage());
 }
 
-$routes = [];
-
-$controllers = array_diff(scandir("controllers/"), array('..', '.'));
-foreach($controllers as $controller){
-    $path = 'controllers/'.$controller;
-    $classname = get_classname($path);
-    require_once($path);
-    $relexionAttributes = (new ReflectionClass($classname))->getAttributes(Route::class);
-    print_r($relexionAttributes);
-    var_dump((new ReflectionClass($classname))->getMethods()[0]->getAttributes(Route::class)[0]->newInstance());die;
-    foreach($relexionAttributes as $reflexionAttribute){
-        $route = $reflexionAttribute->newInstance();
-        var_dump($route);
-        array_push($routes, $route);
-    }
-}
-var_dump($routes);
-
-function get_classname($file){
-    $fp = fopen($file, 'r');
-    $class = $buffer = '';
-    $i = 0;
-    while (!$class) {
-        if (feof($fp)) break;
-
-        $buffer .= fread($fp, 512);
-        $tokens = token_get_all($buffer);
-
-        if (strpos($buffer, '{') === false) continue;
-
-        for (;$i<count($tokens);$i++) {
-            if ($tokens[$i][0] === T_CLASS) {
-                for ($j=$i+1;$j<count($tokens);$j++) {
-                    if ($tokens[$j] === '{') {
-                        $class = $tokens[$i+2][1];
-                    }
-                }
-            }
-        }
-    }
-    return $class;
-}
+?>
