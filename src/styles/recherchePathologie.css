@@ -1,0 +1,16 @@
+/* Affichage à gauche de la liste et à droite des résultats */
+
+.float-container {
+    border: 3px solid #fff;
+    padding: 20px;
+}
+
+.float-child {
+    width: 50%;
+    float: left;
+    padding: 20px;
+}
+
+.col-4 {
+    max-width: 100% !important;
+}
