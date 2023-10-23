@@ -2,18 +2,18 @@
 
 #[Attribute(Attribute::TARGET_CLASS)]
 class Prefix {
-    private $prefix;
+    private $_prefix;
 
     public function __construct($prefix){
-        $this->prefix = $prefix;
+        $this->_prefix = $prefix;
     }
 
     private function setPrefix($prefix){
-        $this->prefix = $prefix;
+        $this->_prefix = $prefix;
     }
 
     public function getPrefix(){
-        return $this->prefix;
+        return $this->_prefix;
     }
 }
 

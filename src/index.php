@@ -1,5 +1,6 @@
 <?php
 
+require_once("vendor/autoload.php");
 require_once("router/Router.class.php");
 
 define("CONTROLLERS_PATH", "controllers/");
@@ -11,6 +12,9 @@ $router->matchRoute($_SERVER['REQUEST_URI']);
 try {
     // le dossier ou on trouve les templates
     $loader = new Twig\Loader\FilesystemLoader('views');
+
+    // initialiser l'environement Twig
+    $twig = new Twig\Environment($loader);
 
     // load template
     if(isset($_GET["page"])) {
