@@ -5,38 +5,38 @@ class Route {
     private $endpoint;
     private $method;
     private $function;
+    private $controller;
 
-    public function __construct($data){
-        $array = array(
-          "endpoint"=>$data
-        );
-        $this->hydrate($array);
-    }
-    
-    
-    public function hydrate(array $donnees)
-    {
-      foreach ($donnees as $key => $value)
-      {
-        $meth = 'set'.ucfirst($key);
-        
-        if (method_exists($this, $meth))
-        {
-          $this->$meth($value);
-        }
-      }
-    }
-
-    private function setEndpoint($endpoint){
+    public function __construct($endpoint, $method, $function, $controller = null){
         $this->endpoint = $endpoint;
-    }
-
-    private function setMethod($method){
         $this->method = $method;
+        $this->function = $function;
+        $this->controller = $controller;
     }
 
-    private function setFunction($function){
-        $this->function = $function;
+    public function getEndpoint(){
+      return $this->endpoint;
+    }
+
+    public function getMethod(){
+        return $this->method;
+    }
+
+    public function getFunction(){
+        return $this->function;
+    }
+    
+    public function setController($controller){
+        $this->controller = $controller;
+    }
+
+    public function setPrefix($prefix){
+      $this->endpoint = $prefix . $this->endpoint;
+    }
+
+    public function call(){
+        $function = $this->function;
+        return ($this->controller)->$function();
     }
 }
 
