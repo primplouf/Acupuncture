@@ -3,6 +3,7 @@
 require_once('./models/Database.class.php');
 require_once('./models/PathologyManager.php');
 require_once('./models/Pathology.class.php');
+require_once('./models/Twig.class.php');
 
 #[Prefix('/pathology')]
 class PathologyController {
@@ -12,10 +13,7 @@ class PathologyController {
     private $_pathologyManager;
 
     public function __construct() {
-        // le dossier ou on trouve les templates
-        $loader = new Twig\Loader\FilesystemLoader('views');
-        // initialiser l'environement Twig
-        $this->_twig = new Twig\Environment($loader);
+        $this->_twig = (new Twig())->getTwig();
         $this->_db = (new Database())->connectDb();
         $this->_pathologyManager = new PathologyManager($this->_db);
     }
@@ -23,6 +21,7 @@ class PathologyController {
     #[Route('/filter', 'GET', 'filter')]
     public function filter() {
 
+        /*
         $reponsemeri = $filtrePathologie->getMeri();
         $rows = array();
         if (isset($_POST['input']) and !empty($_POST['input'])) {
@@ -61,6 +60,7 @@ class PathologyController {
             }
         }
         $extraJs = "script_patho.js";
+        */
         echo $this->_twig->render('filtrePathologie.twig');
     }
 }
