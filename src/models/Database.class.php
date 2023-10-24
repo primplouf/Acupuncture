@@ -18,7 +18,7 @@ class database {
 
     public function connectDb(){
         try {
-            $bdd = new PDO('pgsql:host='.$this->_dbHost.';port='.$this->_dbPort.';dbname='.$this->_dbName.';charset=utf8', $this->_dbLogin, $this->_dbPwd);
+            $bdd = new PDO('pgsql:host='.$this->_dbHost.';port='.$this->_dbPort.';dbname='.$this->_dbName.';', $this->_dbLogin, $this->_dbPwd);
             return $bdd;
         }catch (Exception $e) {
             exit('Erreur '.$e->getCode().' : '.$e->getMessage());

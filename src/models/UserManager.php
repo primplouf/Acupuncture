@@ -14,11 +14,11 @@ class UserManager {
     public function noRegister(User $new_user)
     {
         $noRegister = True;
-        $query = $this->_db->prepare("SELECT * FROM user");
+        $query = $this->_db->prepare("SELECT email FROM public.user");
         $query->execute();
         foreach($query as $user)
         {
-            if ($new_user->getEmail()==$user[3])
+            if ($new_user->getEmail()==$user[0])
             {
                 $noRegister = False;
             }
@@ -26,18 +26,20 @@ class UserManager {
         return $noRegister;
     }
 
-    public function checkConnection(User $new_user)
+    public function checkConnection(User $new_user, $clearPwd)
     {
         $checkConnect = False;
-        $query = $this->_db->prepare("SELECT * FROM user");
+        $query = $this->_db->prepare("SELECT firstname, lastname, pwd FROM public.user where email = :email");
+        $query->bindValue(':email', $new_user->getEmail());
         $query->execute();
+        
         foreach($query as $user)
         {
-            if (($new_user->getEmail()==$user[3]) && ($new_user->getPwd())==($user[2])) 
+            if (password_verify($clearPwd, $user[2]))
             {
-                $new_user->setID($user[0]);
                 $new_user->setPwd($user[2]);
-                $new_user->setEmail($user[3]);
+                $new_user->setFirstname($user[0]);
+                $new_user->setLastname($user[1]);
                 $checkConnect = True;
             }
         } 
@@ -46,7 +48,7 @@ class UserManager {
 
     public function addUser(User $new_user)
     {
-        $query = $this->_db->prepare('INSERT INTO user(firstname, lastname, pwd, email) VALUES(:firstname, :lastname, :pwd, :email)');
+        $query = $this->_db->prepare('INSERT INTO public.user(firstname, lastname, pwd, email) VALUES(:firstname, :lastname, :pwd, :email)');
         
         $query->bindValue(':firstname', $new_user->getFirstname());
         $query->bindValue(':lastname', $new_user->getLastname());

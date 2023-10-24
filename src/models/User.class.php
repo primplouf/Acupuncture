@@ -67,7 +67,7 @@ class User
   {
     if (is_string($pwd) && !empty($pwd))
     {
-      $this->_pwd = $pwd;
+      $this->_pwd = password_hash($pwd, PASSWORD_DEFAULT);
     }
   }
   

@@ -45,7 +45,7 @@ try {
                 break;
         }
     } else {
-        echo $twig->render('inscription.twig');
+        echo $twig->render('connexion.twig');
     }
     
 } catch (Exception $e) {
