@@ -44,6 +44,8 @@ try {
                 echo $twig->render('404.twig');
                 break;
         }
+    } else {
+        echo $twig->render('connexion.twig');
     }
     
 } catch (Exception $e) {
