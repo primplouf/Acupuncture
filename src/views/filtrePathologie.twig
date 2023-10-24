@@ -44,7 +44,11 @@
 
     {% if pathologies is defined and pathologies %}
         {% for pathology in pathologies %}
-            <p>{{ pathology.desc }}</p>
+            <ul>
+                <li>
+                    {{ pathology.desc }}
+                </li>
+            </ul>
         {% endfor %}
     {% else %}
         <p>Aucune pathologie n'a été trouvé pour les critères définis</p>

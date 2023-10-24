@@ -10,54 +10,37 @@
             <div class="float-child">
                 <div class="row">
                     <div class="col-4">
-                        <?php
-                        if ($requete != "") {
-                            while ($a = $requete->fetch()) { ?>
+                        {% if somePathologies %}
+                            {% for pathology in somePathologies %}
                                 <div class="list-group" id="list-tab" role="tablist">
-                                    <input name="pathology" id="pathology" type="submit" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" role="tab" aria-controls="home" value="<?php echo $a['desc']; ?>">
+                                    <input name="pathology" id="pathology" type="submit" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" role="tab" aria-controls="home" value="{{ pathology.desc }}">
                                 </div>
-                        <?php }
-                        }
+                            {% endfor %}
+                        {% endif %}
 
-                        ?>
-
-
-                        <?php for ($i = 1; $i <= $page_total; $i++) {
-                            echo '<a href="/pathology/search?page=recherchePathologie&pagination=' . $i . ' "> ' . $i . ' </a>';
-                        }
-
-                        ?>
+                        {% for i in 1..totalPages %}
+                            <a href="/pathology/search?page=recherchePathologie&pagination={{ i }}">{{ i }}</a>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
 
             <div class="float-child">
-                <?php
-
-                if (isset($rows)) {
-                    if (isset($pat)) {
-                ?><strong><?php echo $pat; ?></strong>
-                    <?php } ?>
-                    <?php
-                    if (count($rows) > 0) {
-                        foreach ($rows as $a) {
-                    ?>
-
-                            <ul>
-                                <li>
-                                    <?php
-                                    echo $a['descp'];
-                                    ?>
-                                </li>
-                            </ul>
-                <?php
-                        }
-                    }
-                } else {
-                    echo "aucun symptôme n'a été trouvé par la pathologie sélectionner";
-                }
-
-                ?>
+                {% if symptoms %}
+                    {% if pathology is defined %}
+                        <strong>{{ pathology }}</strong>
+                    {% endif %}
+                    
+                    {% for symptom in symptoms %}
+                        <ul>
+                            <li>
+                                {{ symptom.desc }}
+                            </li>
+                        </ul>
+                    {% endfor %}
+                {% else %}
+                    <p>Aucun symptôme n'a été trouvé par la pathologie sélectionnée</p>
+                {% endif %}
             </div>
         </div>
     </form>
