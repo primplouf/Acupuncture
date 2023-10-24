@@ -30,7 +30,7 @@ class SessionController {
             $user = new User(array("firstname" => $firstname, "lastname" => $lastname, "email" => $email, "pwd" => $pwd));
             
             if ($this->_userManager->noRegister($user)) {
-                echo "noregistre";
+
                 $res = $this->_userManager->addUser($user);
                 if ($res){
                     echo '<p style="color:green;">Inscription effectué avec succès vous pouvez vous connecter</p>';
@@ -61,8 +61,8 @@ class SessionController {
 
             if ($isConnected) {
                 session_start();
-                $params['session'] = $_POST['email'];
-                echo $this->_twig->render('keywords.twig', $params);
+                $_SESSION['email'] = $_POST['email'];
+                header('Location: /pathology/keywords');
                 exit();
             }
             

@@ -15,10 +15,8 @@ class KeywordManager {
         $query = $this->_db->prepare('SELECT COUNT(DISTINCT p.idp) from keywords k INNER JOIN keysympt ks ON ks.idk = k.idk INNER JOIN symptpatho sp ON sp.ids = ks.ids INNER JOIN patho p ON p.idp = sp.idp WHERE k.name LIKE :name');
         $query->bindValue(':name', $keyword);
         $query->execute();
-        
-        var_dump($query);die;
 
-        return $query[0];
+        return $query->fetch()[0];
     }
 
     public function selectSomePathologyByKeyword($keyword, $offset, $limit) {
