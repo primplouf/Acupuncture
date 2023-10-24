@@ -27,7 +27,7 @@ try {
                 echo $twig->render('recherchePathologie.twig');
                 break;
             case 'filtrePathologie':
-                echo $twig->render('filtrePathologie.twig');
+                //echo $twig->render('filtrePathologie.twig');
                 break;
             case 'keywords':
                 echo $twig->render('keywords.twig');
@@ -51,5 +51,4 @@ try {
 } catch (Exception $e) {
     die ('ERROR: ' . $e->getMessage());
 }
-
 ?>
