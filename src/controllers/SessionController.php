@@ -59,7 +59,7 @@ class SessionController {
                 session_start();
                 $_SESSION['email'] = $_POST['email'];
                 
-                header('Location: index.php?page=keywords');
+                header('Location: /pathology/keywords');
                 exit();
             }
         }
