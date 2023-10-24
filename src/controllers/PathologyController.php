@@ -125,7 +125,8 @@ class PathologyController {
 
     #[Route('/keywords', 'POST', 'keywordSearch')]
     public function keywordSearch() {
-
+        
+        session_start();
         if (!isset($_SESSION['email'])) {
 
             header('Location: /user/login');
