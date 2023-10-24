@@ -17,21 +17,21 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/pathology/filter">Filtre Pathologie</a>
             </li>
-            <?php if (isset($_SESSION['email'])) { ?>
+            {% if session is defined %}
                 <li class="nav-item active">
                     <a class="nav-link" href="index.php?page=keywords">Recherche par mot-clé</a>
                 </li>
-            <?php } ?>
-            <?php if (isset($_SESSION['email'])) { ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/logout">Deconnexion</a>
+                </li>
+            {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="/user/register">Inscription</a>
                 </li>
-            <?php } ?>
-            <?php if (!isset($_SESSION['email'])) { ?>
                 <li class="nav-item">
                     <a class="nav-link" href="/user/login">Connexion</a>
                 </li>
-            <?php } ?>
+            {% endif %}
         </ul>
     </div>
 </nav>

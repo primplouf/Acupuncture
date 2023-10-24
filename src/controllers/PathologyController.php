@@ -70,8 +70,13 @@ class PathologyController {
                     break;
             }
         }
-        
-        echo $this->_twig->render('filtrePathologie.twig');
+
+        $params = array();
+
+        $params['meridiens'] = $meridiens;
+        $params['pathologies'] = $pathologies;
+
+        echo $this->_twig->render('filtrePathologie.twig', $params);
     }
 }
 
