@@ -104,7 +104,12 @@ class PathologyController {
             }
         }
         
-        echo $this->_twig->render('filtrePathologie.twig');
+        $params = array();
+
+        $params['meridiens'] = $meridiens;
+        $params['pathologies'] = $pathologies;
+
+        echo $this->_twig->render('filtrePathologie.twig', $params);
     }
 
     #[Route('/keywords', 'POST', 'keywordSearch')]
@@ -143,7 +148,6 @@ class PathologyController {
 */
         echo $this->_twig->render('keywords.twig');
     }
-
 }
 
 ?>

@@ -48,6 +48,8 @@ class SessionController {
     #[Route("/login", "GET", "login")]
     public function login(){
 
+        $params = array();
+
         if (isset($_POST['email']) and !empty($_POST['email']) and isset($_POST['pwd']) and !empty($_POST['pwd'])) {
 
             $email = htmlspecialchars($_POST['email']);
@@ -55,16 +57,30 @@ class SessionController {
             $new_user = new User(array('email' => $email));
             $isConnected = $this->_userManager->checkConnection($new_user, $pwd);
 
+            $params['verify'] = $isConnected;
+
             if ($isConnected) {
                 session_start();
-                $_SESSION['email'] = $_POST['email'];
-                
-                header('Location: /pathology/keywords');
+                $params['session'] = $_POST['email'];
+                echo $this->_twig->render('keywords.twig', $params);
                 exit();
             }
+            
+            
         }
+        echo $this->_twig->render('connexion.twig', $params);
+    }
 
-        echo $this->_twig->render('connexion.twig');
+    #[Route("/logout", "GET", "logout")]
+    public function logout(){
+
+        $params = array();
+
+        session_start();
+        session_unset();
+        session_destroy();
+
+        echo $this->_twig->render('accueil.twig', $params);
     }
 }
 
