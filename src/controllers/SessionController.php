@@ -3,14 +3,17 @@
 require_once('./models/Database.class.php');
 require_once('./models/UserManager.php');
 require_once('./models/User.class.php');
+require_once('./models/Twig.class.php');
 
 #[Prefix('/user')]
 class SessionController {
 
+    private $_twig;
     private $_db;
     private $_userManager;
 
     public function __construct(){
+        $this->_twig = (new Twig())->getTwig();
         $this->_db = (new Database())->connectDb();
         $this->_userManager = new UserManager($this->_db);
     }
@@ -39,6 +42,7 @@ class SessionController {
             }
         }
 
+        echo $this->_twig->render('inscription.twig');
     }
 
     #[Route("/login", "GET", "login")]
@@ -59,6 +63,8 @@ class SessionController {
                 exit();
             }
         }
+
+        echo $this->_twig->render('connexion.twig');
     }
 }
 
