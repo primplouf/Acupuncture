@@ -7,12 +7,12 @@ require_once('./models/User.class.php');
 #[Prefix('/user')]
 class SessionController {
 
-    private $_bdd;
+    private $_db;
     private $_userManager;
 
     public function __construct(){
-        $this->_bdd = (new Database())->connectDb();
-        $this->_userManager = new UserManager($this->_bdd);
+        $this->_db = (new Database())->connectDb();
+        $this->_userManager = new UserManager($this->_db);
     }
 
     #[Route('/register','POST','register')]
