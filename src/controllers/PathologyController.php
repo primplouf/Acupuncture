@@ -7,6 +7,8 @@ require_once('./models/MeridienManager.php');
 require_once('./models/Meridien.class.php');
 require_once('./models/SymptomeManager.php');
 require_once('./models/Symptome.class.php');
+require_once('./models/KeywordManager.php');
+require_once('./models/Keyword.class.php');
 require_once('./models/Twig.class.php');
 
 #[Prefix('/pathology')]
@@ -17,6 +19,7 @@ class PathologyController {
     private $_pathologyManager;
     private $_meridienManager;
     private $_symptomeManager;
+    private $_keywordManager;
 
     public function __construct() {
         $this->_twig = (new Twig())->getTwig();
@@ -24,6 +27,7 @@ class PathologyController {
         $this->_pathologyManager = new PathologyManager($this->_db);
         $this->_meridienManager = new MeridienManager($this->_db);
         $this->_symptomeManager = new SymptomeManager($this->_db);
+        $this->_keywordManager = new KeywordManager($this->_db);
     }
 
     #[Route('/search', 'POST', 'search')]
@@ -120,34 +124,36 @@ class PathologyController {
             header('Location: /user/login');
             exit();
         }
-        /*
+        
         if (isset($_POST['search']) && !empty($_POST['search'])) {
             $search = $_POST['search'];
-            $elem_total = 0;
-            $page_total = 0;
-            $q = htmlspecialchars($q);
-            $elem_page = 10;
-            $elem_total = $keywords->countRows($q);
+            $search = htmlspecialchars($search);
+            $totalRows = 0;
+            $totalPage = 0;
+            $pathoPerPage = 10;
+            $totalRows = $this->_keywordManager->countKeywords($search);
         
-            // Gestion de la pagination
-            if ($elem_total > 0) {
+            if ($totalRows > 0) {
         
                 if (isset($_GET['pagination']) and !empty($_GET['pagination']) and $_GET['pagination'] > 0) {
+
                     $_GET['pagination'] = intval($_GET['pagination']);
-                    $pageCourante = $_GET['pagination'];
+                    $currentPage = $_GET['pagination'];
                 } else {
-                    $pageCourante = 1;
+
+                    $currentPage = 1;
                 }
         
-                $depart = ($pageCourante - 1) * $elem_page;
-                $page_total = ceil($elem_total / $elem_page);
+                $start = ($currentPage - 1) * $pathoPerPage;
+                $totalPage = ceil($totalRows / $pathoPerPage);
         
-                $lignes = $keywords->selectPathoWithName($q, $depart, $elem_page);
+                $lines = $this->_keywordManager->selectSomePathologyByKeyword($search, $start, $pathoPerPage);
             }
         }
-*/
+
         echo $this->_twig->render('keywords.twig');
     }
+
 }
 
 ?>
