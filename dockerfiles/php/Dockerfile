@@ -13,7 +13,7 @@ RUN php -r "unlink('composer-setup.php');"
 #Move composer.phar to current $PATH to use composer command
 RUN mv composer.phar /usr/local/bin/composer
 
-#Install Twig template manager
-#RUN composer init --require "twig/twig:^2.0"
+#Add pgsql driver for PDO
+RUN apt-get update && apt-get install -y libpq-dev && docker-php-ext-install pdo pdo_pgsql && echo "extension=pdo_pgsql" >> /usr/local/etc/php/php.ini-development
 
 VOLUME /var/www/html
