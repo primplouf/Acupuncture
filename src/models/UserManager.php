@@ -18,7 +18,7 @@ class UserManager {
         $query->execute();
         foreach($query as $user)
         {
-            if (($new_user->login())==($user[1]) || ($new_user->email())==($user[3]))
+            if ($new_user->getEmail()==$user[3])
             {
                 $noRegister = False;
             }
@@ -33,17 +33,9 @@ class UserManager {
         $query->execute();
         foreach($query as $user)
         {
-            if (($new_user->login())==($user[1]) && password_verify($new_user->pwd(), $user[2]))
+            if (($new_user->getEmail()==$user[3]) && ($new_user->getPwd())==($user[2])) 
             {
                 $new_user->setID($user[0]);
-                $new_user->setLogin($user[1]);
-                $new_user->setPwd($user[2]);
-                $new_user->setEmail($user[3]);
-                $checkConnect = True;
-            } else if (($new_user->email())==($user[3]) && ($new_user->pwd())==($user[2])) 
-            {
-                $new_user->setID($user[0]);
-                $new_user->setLogin($user[1]);
                 $new_user->setPwd($user[2]);
                 $new_user->setEmail($user[3]);
                 $checkConnect = True;
@@ -54,11 +46,12 @@ class UserManager {
 
     public function addUser(User $new_user)
     {
-        $query = $this->_db->prepare('INSERT INTO user(login, pwd, email) VALUES(:login, :pwd, :email)');
+        $query = $this->_db->prepare('INSERT INTO user(firstname, lastname, pwd, email) VALUES(:firstname, :lastname, :pwd, :email)');
         
-        $query->bindValue(':login', $new_user->login());
-        $query->bindValue(':pwd', $new_user->pwd());
-        $query->bindValue(':email', $new_user->email());
+        $query->bindValue(':firstname', $new_user->getFirstname());
+        $query->bindValue(':lastname', $new_user->getLastname());
+        $query->bindValue(':pwd', $new_user->getPwd());
+        $query->bindValue(':email', $new_user->getEmail());
 
         return $query->execute();
     }

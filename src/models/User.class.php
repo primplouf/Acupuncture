@@ -3,10 +3,9 @@
 class User
 {
   private $_id;
-  private $_login;
   private $_pwd;
-  private $_name;
-  private $_surname;
+  private $_firstanme;
+  private $_lastname;
   private $_email;
   
 
@@ -29,24 +28,29 @@ class User
     }
   }
 
-  public function id()
+  public function getId()
   {
     return $this->_id;
   }
   
-  public function login()
-  {
-    return $this->_login;
-  }
-  
-  public function pwd()
+  public function getPwd()
   {
     return $this->_pwd;
   }
   
-  public function email()
+  public function getEmail()
   {
     return $this->_email;
+  }
+
+  public function getFirstname()
+  {
+    return $this->_firstanme;
+  }
+
+  public function getLastname()
+  {
+    return $this->_lastname;
   }
   
   public function setId($id)
@@ -56,14 +60,6 @@ class User
     if ($id > 0)
     {
       $this->_id = $id;
-    }
-  }
-  
-  public function setLogin($login)
-  {
-    if (is_string($login) && !empty($login))
-    {
-      $this->_login = $login;
     }
   }
   
@@ -83,14 +79,14 @@ class User
     }
   }
 
-  public function setName($name)
+  public function setFirstname($firstanme)
   {
-    $this->_name = $name;
+    $this->_firstanme = $firstanme;
   }
 
-  public function setSurname($surname)
+  public function setLastname($lastname)
   {
-    $this->_surname = $surname;
+    $this->_lastname = $lastname;
   }
 }
 
