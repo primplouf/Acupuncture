@@ -20,6 +20,8 @@ services:
     container_name: my-php-container
     working_dir: /var/www/html
     entrypoint: ["sh", "-c", "composer install && a2enmod rewrite && exec apache2-foreground"]
+    links:
+      - postgres
     ports:
       - "8000:80"
     volumes:

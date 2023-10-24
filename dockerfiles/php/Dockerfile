@@ -13,7 +13,4 @@ RUN php -r "unlink('composer-setup.php');"
 #Move composer.phar to current $PATH to use composer command
 RUN mv composer.phar /usr/local/bin/composer
 
-#Install Twig template manager
-#RUN composer init --require "twig/twig:^2.0"
-
 VOLUME /var/www/html

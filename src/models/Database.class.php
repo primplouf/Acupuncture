@@ -9,11 +9,11 @@ class database {
     protected $_dbLogin;
 
     public function __construct(){
-        $this->_dbHost = 'localhost';
+        $this->_dbHost = 'postgres';
         $this->_dbPort = '5432';
-        $this->_dbName = 'film';
-        $this->_dbLogin = 'root';
-        $this->_dbPwd = '';
+        $this->_dbName = 'mydatabase';
+        $this->_dbLogin = 'myuser';
+        $this->_dbPwd = 'mypassword';
     }
 
     public function connectDb(){
