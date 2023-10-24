@@ -4,12 +4,12 @@
 </br>
 <h1 class="title">Filtre Pathologie</h1>
 <div class="card">
-    <form method="POST" action="index.php?page=filtrePathologie">
+    <form method="POST" action="/pathology/filter">
         <SELECT name="input" id="input">
             <option value="" selected>Choisir un critère</option>
-            <option value="affichertype">type</option>
-            <option value="affichermeridien">meridien</option>
-            <option value="affichercaract">caract</option>
+            <option value="showtype">Type</option>
+            <option value="showmeridien">Méridien</option>
+            <option value="showcaracteristic">Caractéristique</option>
         </SELECT>
 
         <SELECT name="type" id="type">
@@ -29,14 +29,14 @@
             <?php } ?>
         </SELECT>
 
-        <SELECT name="caract" id="caract">
-            <option value="choisir">choisir une caractéristique</option>
-            <option value="plein">plein</option>
-            <option value="chaud">chaud</option>
-            <option value="vide">vide</option>
-            <option value="froid">froid</option>
-            <option value="interne">interne</option>
-            <option value="externe">externe</option>
+        <SELECT name="caracteristic" id="caracteristic">
+            <option value="choose">choisir une caractéristique</option>
+            <option value="full">plein</option>
+            <option value="hot">chaud</option>
+            <option value="empty">vide</option>
+            <option value="cold">froid</option>
+            <option value="intern">interne</option>
+            <option value="extern">externe</option>
         </SELECT>
 
         <input type="submit" />
