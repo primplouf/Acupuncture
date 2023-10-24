@@ -56,6 +56,7 @@ class SessionController {
             $pwd = htmlspecialchars($_POST['pwd']);
             $new_user = new User(array('email' => $email));
             $isConnected = $this->_userManager->checkConnection($new_user, $pwd);
+
             $params['verify'] = $isConnected;
 
             if ($isConnected) {

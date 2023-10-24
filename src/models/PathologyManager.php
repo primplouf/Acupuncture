@@ -10,6 +10,38 @@ class PathologyManager {
         $this->_db = $db;
     }
 
+    public function getPathologies() {
+        
+        $query = $this->_db->prepare('SELECT idp, mer, type, patho.desc FROM patho');
+        $query->execute();
+
+        $pathologies = [];
+
+        foreach($query as $pathology)
+        {
+            array_push($pathologies, new Pathology(array('idp' => $pathology[0], 'mer' => $pathology[1], 'type' => $pathology[2], 'desc' => $pathology[3])));
+        } 
+
+        return $pathologies;
+    }
+
+    public function getSomePathologies($offset, $limit) {
+
+        $query = $this->_db->prepare('SELECT idp, mer, type, patho.desc FROM patho ORDER BY patho.desc OFFSET :offset LIMIT :limit');
+        $query->bindValue(':offset', $offset);
+        $query->bindValue(':limit', $limit);
+        $query->execute();
+
+        $pathologies = [];
+
+        foreach($query as $pathology)
+        {
+            array_push($pathologies, new Pathology(array('idp' => $pathology[0], 'mer' => $pathology[1], 'type' => $pathology[2], 'desc' => $pathology[3])));
+        } 
+
+        return $pathologies;
+    }
+
     public function getPathologyForTypeAndCaracteristic($type, $caracteristic = null) {
 
         if ($caracteristic == null) {
