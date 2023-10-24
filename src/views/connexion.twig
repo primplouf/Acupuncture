@@ -14,17 +14,13 @@
         <button type="submit">Se connecter</button>
         <br />
         <label>
-            <a href="index.php?page=inscription">Pas de compte ? Inscrivez vous</a>
+            <a href="/user/register">Pas de compte ? Inscrivez vous</a>
             </br>
-            <a href="index.php">Connectez vous sans compte</a>
+            <a href="/">Connectez vous sans compte</a>
         </label>
     </form>
-    <?php
-
-    if (!$verify) {
-        echo 'Votre adresse mail ou votre mot de passe est incorrect';
-    }
-
-    ?>
+    {% if verify is defined and verify == false %}
+        <p>Votre adresse mail ou votre mot de passe est incorrect</p>
+    {% endif %}
 </div>
 {% endblock %}

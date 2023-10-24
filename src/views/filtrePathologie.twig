@@ -23,10 +23,9 @@
 
         <SELECT name="meridien" id="meridien">
             <option value="choisir" selected>choisir le meridien</option>
-            <?php
-            while ($a = $reponsemeri->fetch()) { ?>
-                <option value="<?php echo $a['nom']; ?>"><?php echo $a['nom']; ?></option>
-            <?php } ?>
+            {% for meridien in meridiens %}
+                <option value="{{ meridien.name }}">{{ meridien.name }}</option>
+            {% endfor %}
         </SELECT>
 
         <SELECT name="caracteristic" id="caracteristic">
@@ -43,26 +42,13 @@
 
     </form>
 
-
-    <?php
-
-    if (isset($rows)) {
-        foreach ($rows as $a) {
-    ?>
-            <ul>
-                <li>
-                    <?php
-                    echo $a['desc'];
-                    ?>
-                </li>
-            </ul>
-    <?php
-        }
-    } else {
-
-        echo "Aucune pathologie n'a été trouvé pour les critères définis";
-    }
-    ?>
+    {% if pathologies is defined and pathologies %}
+        {% for pathology in pathologies %}
+            <p>{{ pathology.desc }}</p>
+        {% endfor %}
+    {% else %}
+        <p>Aucune pathologie n'a été trouvé pour les critères définis</p>
+    {% endif %}
 </div>
 {% endblock %}
 
