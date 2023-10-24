@@ -37,6 +37,7 @@ class PathologyController {
         $pathologies = $this->_pathologyManager->getPathologies();
         $somePathologies = [];
         $counterPatho = count($pathologies);
+        $params = array();
 
         if ($counterPatho != 0) {
         
@@ -51,17 +52,23 @@ class PathologyController {
         
             $start = ($currentPage - 1) * $pathoPerPage;
             $totalPages = ceil($counterPatho / $pathoPerPage);
+            $params['totalPages'] = $totalPages;
             $somePathologies = $this->_pathologyManager->getSomePathologies($start, $pathoPerPage);
         }
         
         if (isset($_POST['pathology']) and !empty($_POST['pathology'])) {
             $pathology = htmlspecialchars($_POST['pathology']);
             $symptoms = $this->_symptomeManager->getSymptomesByPatho($pathology);
+            $params['pathology'] = $pathology;
         } else {
             $symptoms = [];
         }
 
-        echo $this->_twig->render('recherchePathologie.twig');
+        
+        $params['somePathologies'] = $somePathologies;
+        $params['symptoms'] = $symptoms;
+
+        echo $this->_twig->render('recherchePathologie.twig', $params);
     }
 
     #[Route('/filter', 'GET', 'filter')]

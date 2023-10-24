@@ -20,7 +20,7 @@ class SymptomeManager {
 
         foreach($query as $symptom)
         {
-            array_push($symptoms, new Meridien(array('desc' => $symptom[0])));
+            array_push($symptoms, new Symptome(array('desc' => $symptom[0])));
         } 
 
         return $symptoms;
