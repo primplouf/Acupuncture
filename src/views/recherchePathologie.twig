@@ -13,14 +13,14 @@
                         {% if somePathologies %}
                             {% for pathology in somePathologies %}
                                 <div class="list-group" id="list-tab" role="tablist">
-                                    <input name="pathology" id="pathology" type="submit" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" role="tab" aria-controls="home" value="{{ pathology.desc }}">
+                                    <input onclick="getSymptoms(this)" name="{{ pathology.desc }}" id="pathology" type="button" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" role="tab" aria-controls="home" value="{{ pathology.desc }}">
                                 </div>
                             {% endfor %}
                         {% endif %}
 
                         {% if totalPages > 0 %}
                             {% for i in 1..totalPages %}
-                                <a href="/pathology/search?page=recherchePathologie&pagination={{ i }}">{{ i }}</a>
+                                <a href="/pathology/search?pagination={{ i }}">{{ i }}</a>
                             {% endfor %}
                         {% endif %}
                     </div>
@@ -28,23 +28,15 @@
             </div>
 
             <div class="float-child">
-                {% if symptoms is defined %}
-                    {% if pathology is defined %}
-                        <strong>{{ pathology }}</strong>
-                    {% endif %}
-                    
-                    {% for symptom in symptoms %}
-                        <ul>
-                            <li>
-                                {{ symptom.desc }}
-                            </li>
-                        </ul>
-                    {% endfor %}
-                {% else %}
-                    <p>Aucun symptôme n'a été trouvé pour la pathologie sélectionnée</p>
-                {% endif %}
+                <strong id="pathologyName"></strong>
+                <ul id="symptoms">
+                </ul>
             </div>
         </div>
     </form>
 </div>
+{% endblock %}
+
+{% block scripts %}
+ <script src="/scripts/recherchePatho.js"> </script>
 {% endblock %}

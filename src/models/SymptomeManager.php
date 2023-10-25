@@ -26,6 +26,21 @@ class SymptomeManager {
         return $symptoms;
     }
 
+    public function getSymptoms() {
+
+        $query = $this->_db->prepare('SELECT symptome.desc FROM symptome');
+        $query->execute();
+        
+        $symptoms = [];
+
+        foreach($query as $symptom)
+        {
+            array_push($symptoms, new Symptome(array('desc' => $symptom[0])));
+        } 
+
+        return $symptoms;
+    }
+
 }
 
 ?>

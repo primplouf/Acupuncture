@@ -1,6 +1,6 @@
 <?php
 
-class Symptome
+class Symptome implements JsonSerializable
 {
   private $_ids;
   private $_desc;
@@ -43,6 +43,10 @@ class Symptome
   {
     $this->_desc = $desc;
   }
+
+  public function jsonSerialize():mixed {
+    return [ "desc" => $this->getDesc() ];
+}
 }
 
 ?>

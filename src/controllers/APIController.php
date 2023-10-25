@@ -1,18 +1,18 @@
 <?php
 
 require_once('./models/Database.class.php');
-require_once('./models/PathologyManager.php');
-require_once('./models/Pathology.class.php');
+require_once('./models/SymptomeManager.php');
+require_once('./models/Symptome.class.php');
 
 #[Prefix('/api')]
 class APIController {
 
     private $_db;
-    private $_pathologyManager;
+    private $_symptomeManager;
 
     public function __construct() {
         $this->_db = (new Database())->connectDb();
-        $this->_pathologyManager = new PathologyManager($this->_db);
+        $this->_symptomeManager = new SymptomeManager($this->_db);
     }
 
     private function setHeaders() {
@@ -26,6 +26,18 @@ class APIController {
     #[Route('/symptoms', ['GET'], 'getSymptoms')]
     public function getSymptoms() {
 
+        $this->setHeaders();
+
+        if (isset($_GET['pathology']) && !empty($_GET['pathology'])) {
+            $pathology = htmlspecialchars($_GET['pathology']);
+            $symptoms = $this->_symptomeManager->getSymptomesByPatho($pathology);
+        } else {
+            $symptoms = $this->_symptomeManager->getSymptoms();
+        }
+
+        http_response_code(200);
+
+        echo json_encode($symptoms);
     }
 }
 
