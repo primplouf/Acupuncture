@@ -11,7 +11,7 @@
         <input type="search" name="search" placeholder="Recherche..." />
         <button type="submit">Valider</button>
     </form>
-
+{{ session }}
     {% if search is defined and search is not empty %}
         {% if lines %}
             {% for line in lines %}

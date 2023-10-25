@@ -22,7 +22,7 @@ class PathologyController {
     private $_keywordManager;
 
     public function __construct() {
-        $this->_twig = (new Twig())->getTwig();
+        $this->_twig = new Twig();
         $this->_db = (new Database())->connectDb();
         $this->_pathologyManager = new PathologyManager($this->_db);
         $this->_meridienManager = new MeridienManager($this->_db);
@@ -126,7 +126,6 @@ class PathologyController {
     #[Route('/keywords', ['GET','POST'], 'keywordSearch')]
     public function keywordSearch() {
         $params = array();
-        session_start();
         if (!isset($_SESSION['email'])) {
 
             header('Location: /user/login');

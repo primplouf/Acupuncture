@@ -2,14 +2,17 @@
 
 class Twig {
 
-    private $_loader;
+    private $_twig;
 
     public function __construct(){
-        $this->_loader = new Twig\Loader\FilesystemLoader('views');
+        $loader = new Twig\Loader\FilesystemLoader('views');
+        $this->_twig = new Twig\Environment($loader);
     }
 
-    public function getTwig(){
-        return new Twig\Environment($this->_loader);
+    public function render($template, $params = NULL) {
+        
+        $params["isConnected"] = isset($_SESSION["email"]);
+        return $this->_twig->render($template, $params);
     }
 
 }

@@ -9,7 +9,7 @@ class DefaultController {
 
     public function __construct()
     {
-        $this->_twig = (new Twig())->getTwig();
+        $this->_twig = new Twig();
     }
 
     #[Route('',['GET'],'default')]

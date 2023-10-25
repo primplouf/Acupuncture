@@ -13,7 +13,7 @@ class SessionController {
     private $_userManager;
 
     public function __construct(){
-        $this->_twig = (new Twig())->getTwig();
+        $this->_twig = new Twig();
         $this->_db = (new Database())->connectDb();
         $this->_userManager = new UserManager($this->_db);
     }
@@ -47,9 +47,7 @@ class SessionController {
 
     #[Route("/login", ["GET","POST"], "login")]
     public function login(){
-
-        $params = array();
-
+    $params = array();
         if (isset($_POST['email']) and !empty($_POST['email']) and isset($_POST['pwd']) and !empty($_POST['pwd'])) {
 
             $email = htmlspecialchars($_POST['email']);
@@ -60,9 +58,8 @@ class SessionController {
             $params['verify'] = $isConnected;
 
             if ($isConnected) {
-                session_start();
                 $_SESSION['email'] = $_POST['email'];
-                header('Location: /pathology/keywords');
+                echo $this->_twig->render('keywords.twig', $params);
                 exit();
             }
             
@@ -73,14 +70,11 @@ class SessionController {
 
     #[Route("/logout", "GET", "logout")]
     public function logout(){
-
-        $params = array();
-
-        session_start();
+        
         session_unset();
         session_destroy();
 
-        echo $this->_twig->render('accueil.twig', $params);
+        echo $this->_twig->render('accueil.twig');
     }
 }
 

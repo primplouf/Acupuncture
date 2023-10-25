@@ -17,7 +17,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/pathology/filter">Filtre Pathologie</a>
             </li>
-            {% if session is defined %}
+            {% if isConnected is defined and isConnected == true %}
                 <li class="nav-item active">
                     <a class="nav-link" href="/pathology/keywords">Recherche par mot-clé</a>
                 </li>

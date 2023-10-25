@@ -88,6 +88,10 @@ class Router {
     }
 
     public function matchRoute($endpoint){
+        session_start();
+        if(!isset($_SESSION['email'])) {
+            session_unset();
+        }
         $route = (array_key_exists($endpoint, $this->routes)) ? $this->routes[$endpoint] : $this->routes["/"];
         return $route->call();
     }
