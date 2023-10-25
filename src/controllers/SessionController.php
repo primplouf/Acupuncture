@@ -18,7 +18,7 @@ class SessionController {
         $this->_userManager = new UserManager($this->_db);
     }
 
-    #[Route('/register','POST','register')]
+    #[Route('/register',['GET','POST'],'register')]
     public function register(){
 
         if (isset($_POST["firstname"]) && isset($_POST["lastname"]) && isset($_POST["email"]) && isset($_POST["pwd"])) {
@@ -45,7 +45,7 @@ class SessionController {
         echo $this->_twig->render('inscription.twig');
     }
 
-    #[Route("/login", "GET", "login")]
+    #[Route("/login", ["GET","POST"], "login")]
     public function login(){
 
         $params = array();

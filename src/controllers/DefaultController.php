@@ -12,7 +12,7 @@ class DefaultController {
         $this->_twig = (new Twig())->getTwig();
     }
 
-    #[Route('','GET','default')]
+    #[Route('',['GET'],'default')]
     public function default(){
         echo $this->_twig->render('accueil.twig');
     }

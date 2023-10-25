@@ -3,13 +3,13 @@
 #[Attribute]
 class Route {
     private $_endpoint;
-    private $_method;
+    private $_methods;
     private $_function;
     private $_controller;
 
-    public function __construct($endpoint, $method, $function, $controller = null){
+    public function __construct($endpoint, $methods, $function, $controller = null){
         $this->_endpoint = $endpoint;
-        $this->_method = $method;
+        $this->_methods = $methods;
         $this->_function = $function;
         $this->_controller = $controller;
     }
@@ -19,7 +19,7 @@ class Route {
     }
 
     public function getMethod(){
-        return $this->_method;
+        return $this->_methods;
     }
 
     public function getFunction(){

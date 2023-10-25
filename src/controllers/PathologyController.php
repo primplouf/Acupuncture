@@ -30,7 +30,7 @@ class PathologyController {
         $this->_keywordManager = new KeywordManager($this->_db);
     }
 
-    #[Route('/search', 'POST', 'search')]
+    #[Route('/search', ['GET','POST'], 'search')]
     public function search() {
 
         $pathoPerPage = 10;
@@ -71,7 +71,7 @@ class PathologyController {
         echo $this->_twig->render('recherchePathologie.twig', $params);
     }
 
-    #[Route('/filter', 'GET', 'filter')]
+    #[Route('/filter', ['GET','POST'], 'filter')]
     public function filter() {
         
         $meridiens = $this->_meridienManager->getMeridiens();        
@@ -123,7 +123,7 @@ class PathologyController {
         echo $this->_twig->render('filtrePathologie.twig', $params);
     }
 
-    #[Route('/keywords', 'POST', 'keywordSearch')]
+    #[Route('/keywords', ['GET','POST'], 'keywordSearch')]
     public function keywordSearch() {
         $params = array();
         session_start();
