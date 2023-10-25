@@ -125,7 +125,7 @@ class PathologyController {
 
     #[Route('/keywords', 'POST', 'keywordSearch')]
     public function keywordSearch() {
-        
+        $params = array();
         session_start();
         if (!isset($_SESSION['email'])) {
 
@@ -154,12 +154,15 @@ class PathologyController {
         
                 $start = ($currentPage - 1) * $pathoPerPage;
                 $totalPage = ceil($totalRows / $pathoPerPage);
-        
+                $params['totalPage'] = $totalPage;
                 $lines = $this->_keywordManager->selectSomePathologyByKeyword($search, $start, $pathoPerPage);
+                $params['lines'] = $lines;
             }
+
+            $params['search'] = $search;
         }
 
-        echo $this->_twig->render('keywords.twig');
+        echo $this->_twig->render('keywords.twig', $params);
     }
 
 }

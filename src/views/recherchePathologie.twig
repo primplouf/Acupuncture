@@ -18,9 +18,11 @@
                             {% endfor %}
                         {% endif %}
 
-                        {% for i in 1..totalPages %}
-                            <a href="/pathology/search?page=recherchePathologie&pagination={{ i }}">{{ i }}</a>
-                        {% endfor %}
+                        {% if totalPages > 0 %}
+                            {% for i in 1..totalPages %}
+                                <a href="/pathology/search?page=recherchePathologie&pagination={{ i }}">{{ i }}</a>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -39,7 +41,7 @@
                         </ul>
                     {% endfor %}
                 {% else %}
-                    <p>Aucun symptôme n'a été trouvé par la pathologie sélectionnée</p>
+                    <p>Aucun symptôme n'a été trouvé pour la pathologie sélectionnée</p>
                 {% endif %}
             </div>
         </div>

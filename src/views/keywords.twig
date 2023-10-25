@@ -12,42 +12,28 @@
         <button type="submit">Valider</button>
     </form>
 
-    <?php
-
-    if (isset($q) and !empty($q)) {
-        if ($elem_total > 0) {
-
-            foreach ($lignes as $a) {
-
-
-    ?>
+    {% if search is defined and search is not empty %}
+        {% if lines %}
+            {% for line in lines %}
                 <ul>
                     <li>
-                        <?php
-                        echo $a['desc'];
-                        ?>
+                        {{ line.desc }}
                     </li>
                 </ul>
-    <?php
-            }
-        } else {
-            echo 'Aucun résultat pour le mot clé saisi';
-        }
-    } else {
-        echo 'Veuillez saisir un mot clé';
-    }
+            {% endfor %}
+        {% else %}
+            <p>Aucun résultat pour le mot clé saisi.</p>
+        {% endif %}
+    {% else %}
+        <p>Veuillez saisir un mot clé.</p>
+    {% endif %}
 
-
-    ?>
-
-
-    <?php
-    if (isset($page_total)) {
-        for ($i = 1; $i <= $page_total; $i++) {
-            echo '<a href="index.php?page=keywords&pagination=' . $i . '&q=' . $q . ' "> ' . $i . ' </a>';
-        }
-    }
-    ?>
-
+    {% if totalPage > 0 %}
+        {% for i in 1..totalPage %}
+            <a href="index.php?page=keywords&pagination={{ i }}&search={{ search }}">{{ i }}</a>
+        {% endfor %}
+    {% endif %}
+    
+    
 </div>
 {% endblock %}
