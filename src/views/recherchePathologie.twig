@@ -3,7 +3,7 @@
 {% block content %}
 </br>
 <h1 class="title">Recherche Pathologie</h1>
-<div class="card">
+<div class="card card2">
     <form method="POST" action="/pathology/search">
         <div class="float-container">
 
@@ -11,27 +11,32 @@
                 <div class="row">
                     <div class="col-4">
                         {% if somePathologies %}
-                            {% for pathology in somePathologies %}
-                                <div class="list-group" id="list-tab" role="tablist">
-                                    <input onclick="getSymptoms(this)" name="{{ pathology.desc }}" id="pathology" type="button" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" role="tab" aria-controls="home" value="{{ pathology.desc }}">
-                                </div>
-                            {% endfor %}
-                        {% endif %}
-
-                        {% if totalPages > 0 %}
-                            {% for i in 1..totalPages %}
-                                <a href="/pathology/search?pagination={{ i }}">{{ i }}</a>
-                            {% endfor %}
+                            <div class="list">
+                                <ul>
+                                {% for pathology in somePathologies %}
+                                    <li role="tablist">
+                                        <span><input onclick="getSymptoms(this)" name="{{ pathology.desc }}" id="pathology" type="button" class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" role="tab" aria-controls="home" value="{{ pathology.desc }}"></span>
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                            </div>
                         {% endif %}
                     </div>
                 </div>
             </div>
 
-            <div class="float-child">
+            <div id="pathologyDesc" class="card float-child">
                 <strong id="pathologyName"></strong>
                 <ul id="symptoms">
                 </ul>
             </div>
+        </div>
+        <div id="pagination">
+        {% if totalPages > 0 %}
+            {% for i in 1..totalPages %}
+                <a href="/pathology/search?pagination={{ i }}">{{ i }}</a>
+            {% endfor %}
+        {% endif %}
         </div>
     </form>
 </div>

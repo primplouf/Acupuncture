@@ -1,4 +1,24 @@
-﻿
+﻿﻿-- Adapté (ABKr, 2021/02/07) de :
+-- phpMyAdmin SQL Dump
+-- version 4.0.10deb1
+-- http://www.phpmyadmin.net
+--
+-- Client: localhost
+-- Généré le: Jeu 02 Octobre 2014 à 17:02
+-- Version du serveur: 5.5.38-0ubuntu0.14.04.1
+-- Version de PHP: 5.5.9-1ubuntu4.4
+
+
+--
+-- Base de données: `acudb`
+--
+-- USE acudb;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `keySympt`
+--
 
 DROP TABLE IF EXISTS public.keySympt;
 CREATE TABLE public.keySympt (
@@ -2518,12 +2538,3 @@ INSERT INTO public.symptPatho(idS, idP, aggr) VALUES
 (447, 112, false),
 (448, 113, false)
 ;
-
-CREATE TABLE IF NOT EXISTS public.user
-(
-  email varchar(100) NOT NULL,
-  firstname varchar(50) NOT NULL,
-  lastname varchar(50) NOT NULL,
-  pwd varchar(100) NOT NULL,
-  CONSTRAINT pk_usr PRIMARY KEY (email)
-);
